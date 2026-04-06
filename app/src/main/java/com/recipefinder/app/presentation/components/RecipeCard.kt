@@ -46,16 +46,27 @@ import com.recipefinder.app.domain.model.Difficulty
 import com.recipefinder.app.domain.model.Recipe
 import com.recipefinder.app.ui.theme.HeartRed
 import com.recipefinder.app.ui.theme.RecipeFinderTheme
-
+import androidx.compose.material.icons.filled.MoreVert
+import androidx.compose.material.icons.outlined.Delete
+import androidx.compose.material.icons.outlined.Share
+import androidx.compose.material3.DropdownMenu
+import androidx.compose.material3.DropdownMenuItem
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.setValue
 @Composable
 fun RecipeCard(
     recipe: Recipe,
     onCardClick: (Int) -> Unit,
     onFavoriteClick: (Recipe) -> Unit,
+    onDeleteClick: (Recipe) -> Unit,
+    onShareClick: (Recipe) -> Unit,
     modifier: Modifier = Modifier,
     sharedTransitionScope: SharedTransitionScope,
     animatedVisibilityScope: AnimatedVisibilityScope
 ) {
+    var menuExpanded by remember { mutableStateOf(false) }
     with(sharedTransitionScope) {
     Card(
         modifier = modifier
@@ -89,12 +100,40 @@ fun RecipeCard(
                         .padding(8.dp),
                 )
 
-                // Favourite button — top-right
-                FavoriteButton(
-                    isFavorite = recipe.isFavorite,
-                    onClick    = { onFavoriteClick(recipe) },
-                    modifier   = Modifier.align(Alignment.TopEnd),
-                )
+                // Favourite + overflow menu — top-right
+                Row(modifier = Modifier.align(Alignment.TopEnd)) {
+                    FavoriteButton(
+                        isFavorite = recipe.isFavorite,
+                        onClick    = { onFavoriteClick(recipe) },
+                    )
+                    Box {
+                        Surface(
+                            modifier        = Modifier.padding(top = 6.dp, end = 4.dp),
+                            shape           = MaterialTheme.shapes.extraLarge,
+                            color           = MaterialTheme.colorScheme.surface.copy(alpha = 0.85f),
+                            shadowElevation = 2.dp,
+                        ) {
+                            IconButton(onClick = { menuExpanded = true }) {
+                                Icon(Icons.Filled.MoreVert, "More options", Modifier.size(20.dp))
+                            }
+                        }
+                        DropdownMenu(
+                            expanded         = menuExpanded,
+                            onDismissRequest = { menuExpanded = false },
+                        ) {
+                            DropdownMenuItem(
+                                text        = { Text("Share") },
+                                leadingIcon = { Icon(Icons.Outlined.Share, null) },
+                                onClick     = { menuExpanded = false; onShareClick(recipe) },
+                            )
+                            DropdownMenuItem(
+                                text        = { Text("Delete", color = MaterialTheme.colorScheme.error) },
+                                leadingIcon = { Icon(Icons.Outlined.Delete, null, tint = MaterialTheme.colorScheme.error) },
+                                onClick     = { menuExpanded = false; onDeleteClick(recipe) },
+                            )
+                        }
+                    }
+                }
             }
 
             // ── Text content ──────────────────────────────────────────────
@@ -212,6 +251,8 @@ private fun RecipeCardPreview() {
                     ),
                     onCardClick             = {},
                     onFavoriteClick         = {},
+                    onDeleteClick = {},
+                    onShareClick = {},
                     sharedTransitionScope   = this@SharedTransitionLayout,
                     animatedVisibilityScope = this,
                 )

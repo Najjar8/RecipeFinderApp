@@ -33,4 +33,6 @@ interface RecipeRepository {
 
     /** Returns true when [id] is in the local favourites table. */
     suspend fun isFavorite(id: Int): Boolean
+    suspend fun insertRecipe(recipe: Recipe)
+    suspend fun deleteRecipe(id: Int)
 }

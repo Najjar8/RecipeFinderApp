@@ -18,6 +18,8 @@ interface RecipeDao {
     @Query("SELECT * FROM recipes ORDER BY title ASC")
     fun getAllRecipes(): Flow<List<RecipeEntity>>
 
+    @Query("SELECT * FROM recipes ORDER BY title ASC")
+    suspend fun getAllRecipesSnapshot(): List<RecipeEntity>
     /** Full-text search across title AND serialised ingredients JSON. */
     @Query(
         """

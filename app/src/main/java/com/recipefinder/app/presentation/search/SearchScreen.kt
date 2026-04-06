@@ -49,7 +49,18 @@ import com.recipefinder.app.presentation.components.LoadingIndicator
 import com.recipefinder.app.presentation.components.RecipeCard
 import com.recipefinder.app.presentation.components.RecipeSearchBar
 import com.recipefinder.app.ui.theme.RecipeFinderTheme
-
+import android.content.Intent
+import com.recipefinder.app.core.util.formatCookTime
+import androidx.compose.ui.platform.LocalContext
+import com.recipefinder.app.domain.model.Recipe
+import android.net.Uri
+import androidx.compose.runtime.rememberCoroutineScope
+import androidx.core.content.FileProvider
+import coil.imageLoader
+import coil.request.ImageRequest
+import java.io.File
+import kotlinx.coroutines.launch
+@Suppress("DEPRECATION")
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun SearchScreen(
@@ -59,6 +70,8 @@ fun SearchScreen(
     sharedTransitionScope: SharedTransitionScope,
 ) {
     val uiState by viewModel.uiState.collectAsStateWithLifecycle()
+    val context = LocalContext.current
+    val scope   = rememberCoroutineScope()
 
     Scaffold(
         topBar = {
@@ -104,6 +117,8 @@ fun SearchScreen(
                     uiState                 = uiState,
                     onRecipeClick           = onRecipeClick,
                     onFavClick              = viewModel::onToggleFavorite,
+                    onDeleteClick = viewModel::onDeleteRecipe,
+                    onShareClick  = { recipe -> scope.launch { shareRecipeWithImage(context, recipe) } },
                     animatedVisibilityScope = animatedVisibilityScope,
                     sharedTransitionScope   = sharedTransitionScope,
                 )
@@ -127,7 +142,9 @@ private enum class SearchContentState { IDLE, LOADING, RESULTS, EMPTY, ERROR }
 private fun SearchResultsGrid(
     uiState: SearchUiState,
     onRecipeClick: (Int) -> Unit,
-    onFavClick: (com.recipefinder.app.domain.model.Recipe) -> Unit,
+    onFavClick: (Recipe) -> Unit,
+    onDeleteClick: (Recipe) -> Unit,
+    onShareClick: (Recipe) -> Unit,
     animatedVisibilityScope: AnimatedVisibilityScope,
     sharedTransitionScope: SharedTransitionScope,
 ) {
@@ -153,6 +170,8 @@ private fun SearchResultsGrid(
                     recipe                  = recipe,
                     onCardClick             = onRecipeClick,
                     onFavoriteClick         = onFavClick,
+                    onDeleteClick   = onDeleteClick,
+                    onShareClick    = onShareClick,
                     animatedVisibilityScope = animatedVisibilityScope,
                     sharedTransitionScope   = sharedTransitionScope,
                 )
@@ -261,6 +280,63 @@ private fun SearchHints() {
             HorizontalDivider()
         }
     }
+}
+private suspend fun shareRecipeWithImage(context: android.content.Context, recipe: Recipe) {
+    val text = buildString {
+        appendLine("🍽️ ${recipe.title}")
+        appendLine()
+        appendLine("⏱ ${recipe.cookTimeMinutes.formatCookTime()}  •  👥 ${recipe.servings} servings  •  ${recipe.difficulty.label}")
+        appendLine()
+        appendLine("INGREDIENTS")
+        recipe.ingredients.forEach { appendLine("• $it") }
+        appendLine()
+        appendLine("INSTRUCTIONS")
+        recipe.instructions.forEachIndexed { i, step -> appendLine("${i + 1}. $step") }
+        appendLine()
+        appendLine("Shared via RecipeDiscover")
+    }
+
+    val imageUri: Uri? = if (recipe.imageUrl.isNotBlank()) {
+        try {
+            if (recipe.imageUrl.startsWith("content://")) {
+                // User-added local image — share the URI directly
+                Uri.parse(recipe.imageUrl)
+            } else {
+                // Remote HTTPS image — download via Coil and write to cache
+                val result = context.imageLoader.execute(
+                    ImageRequest.Builder(context)
+                        .data(recipe.imageUrl)
+                        .allowHardware(false)   // must be software bitmap to compress
+                        .build()
+                )
+                val bitmap = (result.drawable as? android.graphics.drawable.BitmapDrawable)?.bitmap
+                if (bitmap != null) {
+                    val dir  = File(context.cacheDir, "share").also { it.mkdirs() }
+                    val file = File(dir, "recipe_${recipe.id}.jpg")
+                    file.outputStream().use { bitmap.compress(android.graphics.Bitmap.CompressFormat.JPEG, 90, it) }
+                    FileProvider.getUriForFile(context, "${context.packageName}.fileprovider", file)
+                } else null
+            }
+        } catch (_: Exception) { null }
+    } else null
+
+    val intent = if (imageUri != null) {
+        Intent(Intent.ACTION_SEND).apply {
+            type = "image/jpeg"
+            putExtra(Intent.EXTRA_TEXT, text)
+            putExtra(Intent.EXTRA_STREAM, imageUri)
+            addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION)
+        }
+    } else {
+        // Fallback: text only if image could not be loaded
+        Intent(Intent.ACTION_SEND).apply {
+            type = "text/plain"
+            putExtra(Intent.EXTRA_TITLE, recipe.title)
+            putExtra(Intent.EXTRA_TEXT, text)
+        }
+    }
+
+    context.startActivity(Intent.createChooser(intent, "Share \"${recipe.title}\""))
 }
 
 @Preview(showBackground = true)

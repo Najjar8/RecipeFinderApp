@@ -57,7 +57,7 @@ import com.recipefinder.app.presentation.components.ErrorMessage
 import com.recipefinder.app.presentation.components.LoadingIndicator
 import com.recipefinder.app.ui.theme.HeartRed
 import com.recipefinder.app.ui.theme.RecipeFinderTheme
-
+@Suppress("DEPRECATION")
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun RecipeDetailScreen(

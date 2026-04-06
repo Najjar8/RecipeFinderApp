@@ -25,7 +25,7 @@ import com.recipefinder.app.presentation.detail.RecipeDetailScreen
 import com.recipefinder.app.presentation.favorites.FavoritesScreen
 import com.recipefinder.app.presentation.home.HomeScreen
 import com.recipefinder.app.presentation.search.SearchScreen
-
+import com.recipefinder.app.presentation.addrecipe.AddRecipeScreen
 private const val TRANSITION_DURATION = AppConstants.ANIMATION_DURATION_MS
 
 @Composable
@@ -96,9 +96,8 @@ fun NavGraph(
             ) {
                 composable(Screen.Home.route) {
                     HomeScreen(
-                        onRecipeClick = { recipeId ->
-                            navController.navigate(Screen.RecipeDetail.createRoute(recipeId))
-                        },
+                        onRecipeClick    = { navController.navigate(Screen.RecipeDetail.createRoute(it)) },
+                        onAddRecipeClick = { navController.navigate(Screen.AddRecipe.route) },
                         animatedVisibilityScope = this,
                         sharedTransitionScope = this@SharedTransitionLayout,
                     )
@@ -119,6 +118,12 @@ fun NavGraph(
                         onRecipeClick = { recipeId ->
                             navController.navigate(Screen.RecipeDetail.createRoute(recipeId))
                         }
+                    )
+                }
+
+                composable(Screen.AddRecipe.route) {
+                    AddRecipeScreen(
+                        onNavigateBack = { navController.popBackStack() }
                     )
                 }
 

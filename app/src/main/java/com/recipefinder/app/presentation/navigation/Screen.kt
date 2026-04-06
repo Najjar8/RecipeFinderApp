@@ -11,6 +11,7 @@ sealed class Screen(val route: String) {
     data object Home      : Screen("home")
     data object Search    : Screen("search")
     data object Favorites : Screen("favorites")
+    data object AddRecipe : Screen("add_recipe")
 
     // ── Drill-down destinations ───────────────────────────────────────────────
     data object RecipeDetail : Screen("recipe_detail/{recipeId}") {

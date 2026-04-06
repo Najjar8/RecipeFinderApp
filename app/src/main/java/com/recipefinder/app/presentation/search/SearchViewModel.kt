@@ -22,11 +22,12 @@ import kotlinx.coroutines.flow.onEach
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 import javax.inject.Inject
-
+import com.recipefinder.app.domain.usecase.DeleteRecipeUseCase
 @HiltViewModel
 class SearchViewModel @Inject constructor(
     private val searchRecipesUseCase:  SearchRecipesUseCase,
     private val toggleFavoriteUseCase: ToggleFavoriteUseCase,
+    private val deleteRecipeUseCase:   DeleteRecipeUseCase,
 ) : ViewModel() {
 
     private val _uiState = MutableStateFlow(SearchUiState())
@@ -124,7 +125,14 @@ class SearchViewModel @Inject constructor(
     }
 
     // ─── History helpers ──────────────────────────────────────────────────────
-
+    fun onDeleteRecipe(recipe: Recipe) {
+        viewModelScope.launch {
+            deleteRecipeUseCase(recipe.id)
+            _uiState.update { state ->
+                state.copy(results = state.results.filter { it.id != recipe.id })
+            }
+        }
+    }
     private fun saveToHistory(query: String) {
         searchHistory.remove(query)          // remove duplicate if present
         searchHistory.addFirst(query)

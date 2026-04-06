@@ -16,7 +16,7 @@ import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 import java.util.concurrent.TimeUnit
 import javax.inject.Singleton
-
+import com.google.gson.Strictness
 @Module
 @InstallIn(SingletonComponent::class)
 object NetworkModule {
@@ -52,8 +52,7 @@ object NetworkModule {
 
     @Provides
     @Singleton
-    fun provideGson(): Gson = GsonBuilder().setLenient().create()
-
+    fun provideGson(): Gson = GsonBuilder().setStrictness(Strictness.LENIENT).create()
     @Provides
     @Singleton
     fun provideRetrofit(okHttpClient: OkHttpClient, gson: Gson): Retrofit =

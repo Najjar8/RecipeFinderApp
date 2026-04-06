@@ -22,12 +22,13 @@ import kotlinx.coroutines.flow.onEach
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 import javax.inject.Inject
-
+import com.recipefinder.app.domain.usecase.DeleteRecipeUseCase
 @HiltViewModel
 class HomeViewModel @Inject constructor(
     private val getRecipesUseCase:    GetRecipesUseCase,
     private val toggleFavoriteUseCase: ToggleFavoriteUseCase,
     private val filterRecipesUseCase: FilterRecipesUseCase,
+    private val deleteRecipeUseCase:  DeleteRecipeUseCase,
 ) : ViewModel() {
 
     private val _uiState = MutableStateFlow(HomeUiState())
@@ -131,6 +132,29 @@ class HomeViewModel @Inject constructor(
     }
 
     // ─── Error dismiss ────────────────────────────────────────────────────────
+
+    fun onDeleteRequest(recipe: Recipe) {
+        _uiState.update { it.copy(recipeToDelete = recipe) }
+    }
+
+    fun onDeleteConfirmed() {
+        val recipe = _uiState.value.recipeToDelete ?: return
+        viewModelScope.launch {
+            deleteRecipeUseCase(recipe.id)
+            _uiState.update { state ->
+                val updated = state.allRecipes.filter { it.id != recipe.id }
+                state.copy(
+                    allRecipes     = updated,
+                    recipes        = applyFilter(updated, state.filter),
+                    recipeToDelete = null,
+                )
+            }
+        }
+    }
+
+    fun onDeleteCancelled() {
+        _uiState.update { it.copy(recipeToDelete = null) }
+    }
 
     fun onErrorDismissed() {
         _uiState.update { it.copy(errorMessage = null) }

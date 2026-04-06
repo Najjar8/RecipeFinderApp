@@ -38,40 +38,23 @@ class RecipeRepositoryImpl @Inject constructor(
 
     override fun getRecipes(): Flow<Resource<List<Recipe>>> = flow {
         emit(Resource.Loading())
-
-        // 1. Serve stale cache immediately (fast first render)
-        val cachedEntities = recipeDao.getAllRecipes()
-        // We collect just once here; the DAOs live Flow is observed in UI layer
-        // for reactive updates after the network refresh completes.
-
         try {
             val response = api.getRecipes()
-            val favorites = favoriteDao.getAllFavorites()
-                // Snapshot — not a live collection
-                .let { flow -> mutableSetOf<Int>() } // placeholder; real set below
-
-            // Collect current favorite IDs synchronously
-            val favoriteIds = buildSet<Int> {
-                // getAllFavorites() is a Flow; we call the suspend isFavorite
-                // per item later, which is fine for small sets.
-            }
-
             val entities = response.results.map { dto ->
                 val isFav = favoriteDao.isFavorite(dto.id)
                 dto.toEntity(isFavorite = isFav)
             }
-
             recipeDao.insertRecipes(entities)
-
-            val domainList = entities.map { it.toDomain() }
-            emit(Resource.Success(domainList))
-
+            // Merge with any user-created local recipes not in the remote list
+            val remoteIds  = entities.map { it.id }.toSet()
+            val allLocal   = recipeDao.getAllRecipesSnapshot()
+            val localOnly  = allLocal.filter { it.id !in remoteIds }
+            val merged     = (entities + localOnly).map { it.toDomain() }
+            emit(Resource.Success(merged))
         } catch (e: Exception) {
-            // Network failed → surface cached data as an error-with-data
-            emit(Resource.Error(
-                message = e.toUserMessage(),
-                data    = null        // caller will read from Room Flow
-            ))
+            val cached = recipeDao.getAllRecipesSnapshot().map { it.toDomain() }
+            if (cached.isNotEmpty()) emit(Resource.Success(cached))
+            else emit(Resource.Error(e.toUserMessage()))
         }
     }
 
@@ -142,4 +125,14 @@ class RecipeRepositoryImpl @Inject constructor(
 
     override suspend fun isFavorite(id: Int): Boolean =
         favoriteDao.isFavorite(id)
+
+    override suspend fun insertRecipe(recipe: Recipe) {
+        recipeDao.insertRecipe(recipe.toEntity())
+    }
+
+    override suspend fun deleteRecipe(id: Int) {
+        recipeDao.deleteRecipeById(id)
+        favoriteDao.deleteFavorite(id)
+    }
 }
+

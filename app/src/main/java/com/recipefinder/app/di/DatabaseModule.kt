@@ -28,7 +28,7 @@ object DatabaseModule {
             AppConstants.DATABASE_NAME,
         )
             // In production, replace this with a proper Migration object.
-            .fallbackToDestructiveMigration()
+            .fallbackToDestructiveMigration(dropAllTables = true)
             .build()
 
     @Provides

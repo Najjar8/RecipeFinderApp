@@ -15,6 +15,7 @@ data class HomeUiState(
     val filter:         RecipeFilter = RecipeFilter(),
     val errorMessage:   String?      = null,
     val searchQuery:    String       = "",
+    val recipeToDelete: Recipe?      = null,
 ) {
     /** Convenience property – true when there is nothing to show and no error. */
     val isEmpty: Boolean get() = !isLoading && recipes.isEmpty() && errorMessage == null

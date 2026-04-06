@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">RecipeDiscover</string>
+    <string name="search_hint">Search recipes, ingredients…</string>
+    <string name="no_recipes_found">No recipes found</string>
+    <string name="no_favorites">No favourites yet</string>
+    <string name="error_generic">Something went wrong. Please try again.</string>
+    <string name="error_no_internet">No internet connection</string>
+    <string name="loading">Loading…</string>
+    <string name="retry">Retry</string>
+    <string name="ingredients">Ingredients</string>
+    <string name="instructions">Instructions</string>
+    <string name="cook_time">Cook Time</string>
+    <string name="servings">Servings</string>
+    <string name="difficulty">Difficulty</string>
+    <string name="add_to_favorites">Add to favourites</string>
+    <string name="remove_from_favorites">Remove from favourites</string>
+    <string name="nav_home">Home</string>
+    <string name="nav_search">Search</string>
+    <string name="nav_favorites">Favourites</string>
+    <string name="filter_all">All</string>
+    <string name="filter_easy">Easy</string>
+    <string name="filter_medium">Medium</string>
+    <string name="filter_hard">Hard</string>
+    <string name="sort_by">Sort by</string>
+    <string name="sort_name">Name</string>
+    <string name="sort_cook_time">Cook Time</string>
+    <string name="sort_likes">Most Liked</string>
+    <string name="min">min</string>
+</resources>

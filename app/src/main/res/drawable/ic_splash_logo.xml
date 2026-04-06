@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--  Simple chef-hat vector for the splash screen  -->
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:width="108dp"
+    android:height="108dp"
+    android:viewportWidth="24"
+    android:viewportHeight="24">
+
+    <path
+        android:fillColor="#FFFFFF"
+        android:pathData="M18.06,22.99h1.66c0.84,0 1.53,-0.64 1.63,-1.46L23,5.05h-5V1h-1.97v4.05h-4.97l0.3,2.34C13.54,7.9 15,9.82 15,12c0,2.37 -1.67,4.39 -3.97,4.89L10.3,19.8C9.96,20.54 9.21,21 8.38,21H8l0.04,1.96h10.02V22.99zM11,11h2v2h-2zM11,7h2v2h-2z" />
+    <path
+        android:fillColor="#FFFFFF"
+        android:pathData="M5,1C2.8,1 1,2.8 1,5c0,1.65 1,3.09 2.5,3.71V19c0,1.1 0.9,2 2,2h1c1.1,0 2,-0.9 2,-2V8.71C10,8.09 11,6.65 11,5c0,-2.2 -1.8,-4 -4,-4z" />
+</vector>

@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Base application theme – Compose handles all the theming; this is just a shell. -->
+    <style name="Theme.RecipeFinderApp" parent="android:Theme.Material.Light.NoActionBar">
+        <item name="android:statusBarColor">@android:color/transparent</item>
+        <item name="android:navigationBarColor">@android:color/transparent</item>
+        <item name="android:windowLightStatusBar">true</item>
+    </style>
+
+    <!-- Splash screen theme – uses core-splashscreen library -->
+    <style name="Theme.RecipeFinderApp.SplashScreen" parent="Theme.SplashScreen">
+        <item name="windowSplashScreenBackground">#1B5E20</item>
+        <item name="windowSplashScreenAnimatedIcon">@drawable/ic_splash_logo</item>
+        <item name="windowSplashScreenIconBackgroundColor">#1B5E20</item>
+        <item name="postSplashScreenTheme">@style/Theme.RecipeFinderApp</item>
+    </style>
+</resources>

@@ -1,0 +1,168 @@
+<changelist name="Uncommitted_changes_before_revert_[Changes]" date="1775391122705" recycled="false" toDelete="true">
+  <option name="PATH" value="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_revert_[Changes]/shelved.patch" />
+  <option name="DESCRIPTION" value="Uncommitted changes before revert [Changes]" />
+  <binary>
+    <option name="AFTER_PATH" value="app/build/intermediates/project_dex_archive/debug/dexBuilderDebug/out/com/recipefinder/app/presentation/favorites/FavoritesScreenKt$FavoritesList$lambda$0$0$$inlined$items$default$3.dex" />
+    <option name="SHELVED_PATH" value="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_revert_[Changes]/FavoritesScreenKt$FavoritesList$lambda$0$0$$inlined$items$default$3.dex" />
+  </binary>
+  <binary>
+    <option name="AFTER_PATH" value="app/build/intermediates/built_in_kotlinc/debug/compileDebugKotlin/classes/com/recipefinder/app/MainActivity.class" />
+    <option name="SHELVED_PATH" value="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_revert_[Changes]/MainActivity.class" />
+  </binary>
+  <binary>
+    <option name="AFTER_PATH" value="app/build/intermediates/dex/debug/mergeProjectDexDebug/1/classes.dex" />
+    <option name="SHELVED_PATH" value="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_revert_[Changes]/classes.dex" />
+  </binary>
+  <binary>
+    <option name="AFTER_PATH" value="app/build/intermediates/project_dex_archive/debug/dexBuilderDebug/out/com/recipefinder/app/presentation/components/BottomNavItem.dex" />
+    <option name="SHELVED_PATH" value="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_revert_[Changes]/BottomNavItem.dex" />
+  </binary>
+  <binary>
+    <option name="AFTER_PATH" value="app/build/intermediates/classes/debug/transformDebugClassesWithAsm/dirs/com/recipefinder/app/presentation/home/HomeViewModel_HiltModules_KeyModule_ProvideFactory$InstanceHolder.class" />
+    <option name="SHELVED_PATH" value="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_revert_[Changes]/HomeViewModel_HiltModules_KeyModule_ProvideFactory$InstanceHolder.class" />
+  </binary>
+  <binary>
+    <option name="AFTER_PATH" value="app/build/intermediates/built_in_kotlinc/debug/compileDebugKotlin/classes/com/recipefinder/app/core/util/ExtensionsKt.class" />
+    <option name="SHELVED_PATH" value="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_revert_[Changes]/ExtensionsKt.class" />
+  </binary>
+  <binary>
+    <option name="AFTER_PATH" value="app/build/intermediates/classes/debug/transformDebugClassesWithAsm/dirs/com/recipefinder/app/presentation/favorites/FavoritesViewModel$observeFavorites$3.class" />
+    <option name="SHELVED_PATH" value="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_revert_[Changes]/FavoritesViewModel$observeFavorites$3.class" />
+  </binary>
+  <binary>
+    <option name="AFTER_PATH" value="app/build/kotlin/compileDebugKotlin/cacheable/caches-jvm/jvm/kotlin/constants.tab.values.at" />
+    <option name="SHELVED_PATH" value="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_revert_[Changes]/constants.tab.values.at" />
+  </binary>
+  <binary>
+    <option name="AFTER_PATH" value="app/build/intermediates/merged_res/debug/mergeDebugResources/values-en-rXC_values-en-rXC.arsc.flat" />
+    <option name="SHELVED_PATH" value="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_revert_[Changes]/values-en-rXC_values-en-rXC.arsc.flat" />
+  </binary>
+  <binary>
+    <option name="AFTER_PATH" value="app/build/intermediates/classes/debug/hiltJavaCompileDebug/com/recipefinder/app/DaggerRecipeFinderApp_HiltComponents_SingletonC$ServiceCBuilder.class" />
+    <option name="SHELVED_PATH" value="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_revert_[Changes]/DaggerRecipeFinderApp_HiltComponents_SingletonC$ServiceCBuilder.class" />
+  </binary>
+  <binary>
+    <option name="AFTER_PATH" value="app/build/intermediates/classes/debug/transformDebugClassesWithAsm/dirs/com/recipefinder/app/presentation/home/HomeScreenKt$HomeScreen$4$3$1.class" />
+    <option name="SHELVED_PATH" value="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_revert_[Changes]/HomeScreenKt$HomeScreen$4$3$1.class" />
+  </binary>
+  <binary>
+    <option name="AFTER_PATH" value="app/build/intermediates/classes/debug/transformDebugClassesWithAsm/dirs/com/recipefinder/app/presentation/search/SearchViewModel$observeQueryDebounced$$inlined$filter$1.class" />
+    <option name="SHELVED_PATH" value="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_revert_[Changes]/SearchViewModel$observeQueryDebounced$$inlined$filter$1.class" />
+  </binary>
+  <binary>
+    <option name="AFTER_PATH" value="app/build/intermediates/project_dex_archive/debug/dexBuilderDebug/out/com/recipefinder/app/core/constants/AppConstants.dex" />
+    <option name="SHELVED_PATH" value="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_revert_[Changes]/AppConstants.dex" />
+  </binary>
+  <binary>
+    <option name="AFTER_PATH" value="app/build/kotlin/compileDebugKotlin/cacheable/caches-jvm/jvm/kotlin/subtypes.tab.keystream.len" />
+    <option name="SHELVED_PATH" value="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_revert_[Changes]/subtypes.tab.keystream.len" />
+  </binary>
+  <binary>
+    <option name="AFTER_PATH" value="app/build/intermediates/classes/debug/transformDebugClassesWithAsm/dirs/com/recipefinder/app/data/local/dao/RecipeDao_Impl$refreshRecipes$2.class" />
+    <option name="SHELVED_PATH" value="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_revert_[Changes]/RecipeDao_Impl$refreshRecipes$2.class" />
+  </binary>
+  <binary>
+    <option name="AFTER_PATH" value="app/build/intermediates/project_dex_archive/debug/dexBuilderDebug/out/com/recipefinder/app/data/repository/RecipeRepositoryImpl$searchRecipes$1.dex" />
+    <option name="SHELVED_PATH" value="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_revert_[Changes]/RecipeRepositoryImpl$searchRecipes$1.dex" />
+  </binary>
+  <binary>
+    <option name="AFTER_PATH" value="app/build/intermediates/merged_res/debug/mergeDebugResources/values-te_values-te.arsc.flat" />
+    <option name="SHELVED_PATH" value="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_revert_[Changes]/values-te_values-te.arsc.flat" />
+  </binary>
+  <binary>
+    <option name="AFTER_PATH" value="app/build/intermediates/built_in_kotlinc/debug/compileDebugKotlin/classes/com/recipefinder/app/di/NetworkModule.class" />
+    <option name="SHELVED_PATH" value="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_revert_[Changes]/NetworkModule.class" />
+  </binary>
+  <binary>
+    <option name="AFTER_PATH" value="app/build/intermediates/classes/debug/transformDebugClassesWithAsm/dirs/com/recipefinder/app/presentation/favorites/FavoritesViewModel_HiltModules$KeyModule.class" />
+    <option name="SHELVED_PATH" value="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_revert_[Changes]/FavoritesViewModel_HiltModules$KeyModule.class" />
+  </binary>
+  <binary>
+    <option name="AFTER_PATH" value="app/build/intermediates/classes/debug/transformDebugClassesWithAsm/dirs/com/recipefinder/app/RecipeFinderApp_HiltComponents$SingletonC.class" />
+    <option name="SHELVED_PATH" value="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_revert_[Changes]/RecipeFinderApp_HiltComponents$SingletonC.class" />
+  </binary>
+  <binary>
+    <option name="AFTER_PATH" value="app/build/intermediates/merged_res/debug/mergeDebugResources/values-pl_values-pl.arsc.flat" />
+    <option name="SHELVED_PATH" value="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_revert_[Changes]/values-pl_values-pl.arsc.flat" />
+  </binary>
+  <binary>
+    <option name="AFTER_PATH" value="app/build/intermediates/merged_res/debug/mergeDebugResources/values-nb_values-nb.arsc.flat" />
+    <option name="SHELVED_PATH" value="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_revert_[Changes]/values-nb_values-nb.arsc.flat" />
+  </binary>
+  <binary>
+    <option name="AFTER_PATH" value="app/build/intermediates/classes/debug/transformDebugClassesWithAsm/dirs/com/recipefinder/app/presentation/search/SearchScreenKt$SearchScreen$2$2$1$1.class" />
+    <option name="SHELVED_PATH" value="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_revert_[Changes]/SearchScreenKt$SearchScreen$2$2$1$1.class" />
+  </binary>
+  <binary>
+    <option name="AFTER_PATH" value="app/build/intermediates/classes/debug/hiltJavaCompileDebug/com/recipefinder/app/DaggerRecipeFinderApp_HiltComponents_SingletonC$ViewModelCBuilder.class" />
+    <option name="SHELVED_PATH" value="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_revert_[Changes]/DaggerRecipeFinderApp_HiltComponents_SingletonC$ViewModelCBuilder.class" />
+  </binary>
+  <binary>
+    <option name="AFTER_PATH" value="app/build/intermediates/merged_res/debug/mergeDebugResources/values-zh-rTW_values-zh-rTW.arsc.flat" />
+    <option name="SHELVED_PATH" value="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_revert_[Changes]/values-zh-rTW_values-zh-rTW.arsc.flat" />
+  </binary>
+  <binary>
+    <option name="AFTER_PATH" value="app/build/intermediates/javac/debug/compileDebugJavaWithJavac/classes/com/recipefinder/app/di/NetworkModule_ProvideRecipeApiServiceFactory.class" />
+    <option name="SHELVED_PATH" value="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_revert_[Changes]/NetworkModule_ProvideRecipeApiServiceFactory.class" />
+  </binary>
+  <binary>
+    <option name="AFTER_PATH" value="app/build/intermediates/project_dex_archive/debug/dexBuilderDebug/out/com/recipefinder/app/di/NetworkModule.dex" />
+    <option name="SHELVED_PATH" value="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_revert_[Changes]/NetworkModule.dex" />
+  </binary>
+  <binary>
+    <option name="AFTER_PATH" value="app/build/intermediates/javac/debug/compileDebugJavaWithJavac/classes/hilt_aggregated_deps/_com_recipefinder_app_presentation_detail_RecipeDetailViewModel_HiltModules_KeyModule.class" />
+    <option name="SHELVED_PATH" value="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_revert_[Changes]/_com_recipefinder_app_presentation_detail_RecipeDetailViewModel_HiltModules_KeyModule.class" />
+  </binary>
+  <binary>
+    <option name="AFTER_PATH" value="app/build/kotlin/compileDebugKotlin/cacheable/caches-jvm/jvm/kotlin/subtypes.tab.keystream" />
+    <option name="SHELVED_PATH" value="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_revert_[Changes]/subtypes.tab.keystream" />
+  </binary>
+  <binary>
+    <option name="AFTER_PATH" value="app/build/intermediates/built_in_kotlinc/debug/compileDebugKotlin/classes/com/recipefinder/app/presentation/home/HomeScreenKt$HomeScreen$1$1.class" />
+    <option name="SHELVED_PATH" value="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_revert_[Changes]/HomeScreenKt$HomeScreen$1$1.class" />
+  </binary>
+  <binary>
+    <option name="AFTER_PATH" value="app/build/kotlin/compileDebugKotlin/cacheable/caches-jvm/jvm/kotlin/internal-name-to-source.tab.len" />
+    <option name="SHELVED_PATH" value="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_revert_[Changes]/internal-name-to-source.tab.len" />
+  </binary>
+  <binary>
+    <option name="AFTER_PATH" value="app/build/intermediates/built_in_kotlinc/debug/compileDebugKotlin/classes/com/recipefinder/app/data/repository/RecipeRepositoryImpl.class" />
+    <option name="SHELVED_PATH" value="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_revert_[Changes]/RecipeRepositoryImpl.class" />
+  </binary>
+  <binary>
+    <option name="AFTER_PATH" value="app/build/intermediates/classes/debug/transformDebugClassesWithAsm/dirs/com/recipefinder/app/presentation/components/ComposableSingletons$DifficultyBadgeKt.class" />
+    <option name="SHELVED_PATH" value="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_revert_[Changes]/ComposableSingletons$DifficultyBadgeKt.class" />
+  </binary>
+  <binary>
+    <option name="AFTER_PATH" value="app/build/kotlin/compileDebugKotlin/cacheable/caches-jvm/jvm/kotlin/class-attributes.tab" />
+    <option name="SHELVED_PATH" value="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_revert_[Changes]/class-attributes.tab" />
+  </binary>
+  <binary>
+    <option name="AFTER_PATH" value="app/build/intermediates/project_dex_archive/debug/dexBuilderDebug/out/com/recipefinder/app/domain/model/Difficulty.dex" />
+    <option name="SHELVED_PATH" value="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_revert_[Changes]/Difficulty.dex" />
+  </binary>
+  <binary>
+    <option name="AFTER_PATH" value="app/build/intermediates/built_in_kotlinc/debug/compileDebugKotlin/classes/com/recipefinder/app/presentation/components/StateComponentsKt.class" />
+    <option name="SHELVED_PATH" value="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_revert_[Changes]/StateComponentsKt.class" />
+  </binary>
+  <binary>
+    <option name="AFTER_PATH" value="app/build/intermediates/project_dex_archive/debug/dexBuilderDebug/out/com/recipefinder/app/presentation/home/HomeScreenKt$RecipeGrid$lambda$0$0$$inlined$items$default$2.dex" />
+    <option name="SHELVED_PATH" value="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_revert_[Changes]/HomeScreenKt$RecipeGrid$lambda$0$0$$inlined$items$default$2.dex" />
+  </binary>
+  <binary>
+    <option name="AFTER_PATH" value="app/build/intermediates/classes/debug/transformDebugClassesWithAsm/dirs/com/recipefinder/app/data/local/database/RecipeDatabase_Impl$createOpenDelegate$_openDelegate$1.class" />
+    <option name="SHELVED_PATH" value="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_revert_[Changes]/RecipeDatabase_Impl$createOpenDelegate$_openDelegate$1.class" />
+  </binary>
+  <binary>
+    <option name="AFTER_PATH" value="app/build/intermediates/project_dex_archive/debug/dexBuilderDebug/out/com/recipefinder/app/presentation/components/ComposableSingletons$StateComponentsKt.dex" />
+    <option name="SHELVED_PATH" value="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_revert_[Changes]/ComposableSingletons$StateComponentsKt.dex" />
+  </binary>
+  <binary>
+    <option name="AFTER_PATH" value="app/build/intermediates/classes/debug/transformDebugClassesWithAsm/dirs/com/recipefinder/app/MainActivity.class" />
+    <option name="SHELVED_PATH" value="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_revert_[Changes]/MainActivity1.class" />
+  </binary>
+  <binary>
+    <option name="AFTER_PATH" value="app/build/intermediates/classes/debug/transformDebugClassesWithAsm/dirs/com/recipefinder/app/presentation/home/HomeScreenKt$HomeScreen$1$1.class" />
+    <option name="SHELVED_PATH" value="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_revert_[Changes]/HomeScreenKt$HomeScreen$1$11.class" />
+  </binary>
+</changelist>

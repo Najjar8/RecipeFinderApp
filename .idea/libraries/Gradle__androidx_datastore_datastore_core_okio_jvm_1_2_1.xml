@@ -1,0 +1,12 @@
+<component name="libraryTable">
+  <library name="Gradle: androidx.datastore:datastore-core-okio-jvm:1.2.1" type="java-imported" external-system-id="GRADLE">
+    <properties groupId="androidx.datastore" artifactId="datastore-core-okio-jvm" version="1.2.1" baseVersion="1.2.1" />
+    <CLASSES>
+      <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/androidx.datastore/datastore-core-okio-jvm/1.2.1/16e01a0603ce8cf206b21a304ff1ded7a9bff1da/datastore-core-okio-jvm-1.2.1.jar!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES>
+      <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/androidx.datastore/datastore-core-okio-jvm/1.2.1/b68093cf47a56fd05f747863848a582aedbd0348/datastore-core-okio-jvm-1.2.1-sources.jar!/" />
+    </SOURCES>
+  </library>
+</component>

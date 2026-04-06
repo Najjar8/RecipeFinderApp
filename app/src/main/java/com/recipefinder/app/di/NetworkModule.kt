@@ -1,5 +1,7 @@
 package com.recipefinder.app.di
 
+import com.google.gson.Gson
+import com.google.gson.GsonBuilder
 import com.recipefinder.app.BuildConfig
 import com.recipefinder.app.core.constants.AppConstants
 import com.recipefinder.app.data.remote.api.RecipeApiService
@@ -50,11 +52,15 @@ object NetworkModule {
 
     @Provides
     @Singleton
-    fun provideRetrofit(okHttpClient: OkHttpClient): Retrofit =
+    fun provideGson(): Gson = GsonBuilder().setLenient().create()
+
+    @Provides
+    @Singleton
+    fun provideRetrofit(okHttpClient: OkHttpClient, gson: Gson): Retrofit =
         Retrofit.Builder()
             .baseUrl(BuildConfig.BASE_URL)
             .client(okHttpClient)
-            .addConverterFactory(GsonConverterFactory.create())
+            .addConverterFactory(GsonConverterFactory.create(gson))
             .build()
 
     @Provides

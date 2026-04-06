@@ -43,10 +43,9 @@ class MockInterceptor @Inject constructor() : Interceptor {
         url.substringAfter("query=").substringBefore("&").lowercase()
 
     private fun buildSearchResponse(query: String): String {
-        // Filter mock recipes by title match
         val filtered = MOCK_RECIPES.filter {
-            it.first.lowercase().contains(query) ||
-            it.second.lowercase().contains(query)
+            it.title.lowercase().contains(query) ||
+                    it.category.lowercase().contains(query)
         }
         val items = filtered.joinToString(",") { buildRecipeJson(it) }
         return """{"results":[$items],"total":${filtered.size},"page":1}"""
@@ -55,78 +54,43 @@ class MockInterceptor @Inject constructor() : Interceptor {
     // ─── Mock data ──────────────────────────────────────────────────────────
 
     // Each triple: (title, category-tag, difficulty)
+    data class MockRecipe(
+        val title:      String,
+        val category:   String,
+        val difficulty: String,
+        val imageUrl:   String,
+        val cookTime:   Int,
+        val servings:   Int,
+        val calories:   Int,
+    )
+
     private val MOCK_RECIPES = listOf(
-        Triple("Creamy Tuscan Chicken",        "chicken",  "Easy"),
-        Triple("Avocado Toast with Poached Egg","breakfast","Easy"),
-        Triple("Thai Basil Beef Stir Fry",     "beef",     "Medium"),
-        Triple("Classic Margherita Pizza",     "pizza",    "Medium"),
-        Triple("Chocolate Lava Cake",          "dessert",  "Medium"),
-        Triple("Mediterranean Quinoa Bowl",    "vegetarian","Easy"),
-        Triple("Miso Ramen Bowl",              "soup",     "Hard"),
-        Triple("Spicy Tuna Rolls",             "sushi",    "Hard"),
-        Triple("Greek Lemon Chicken",          "chicken",  "Easy"),
-        Triple("Homemade Fettuccine Alfredo",  "pasta",    "Medium"),
-        Triple("Authentic Carbonara",          "pasta",    "Medium"),
-        Triple("BBQ Pulled Pork",              "pork",     "Easy"),
-        Triple("Smoked Brisket",               "beef",     "Hard"),
-        Triple("French Macarons",              "dessert",  "Hard"),
-        Triple("Classic Tiramisu",             "dessert",  "Medium"),
-        Triple("Hummus Trio Platter",          "vegetarian","Easy"),
+        MockRecipe("Creamy Tuscan Chicken",         "chicken",    "Easy",   "https://images.unsplash.com/photo-1598103442097-8b74394b95c6?w=800",   30,  4, 520),
+        MockRecipe("Avocado Toast with Poached Egg","breakfast",  "Easy",   "https://images.unsplash.com/photo-1525351484163-7529414344d8?w=800",   15,  2, 310),
+        MockRecipe("Thai Basil Beef Stir Fry",      "beef",       "Medium", "https://images.unsplash.com/photo-1603360946369-dc9bb6258143?w=800",   25,  4, 480),
+        MockRecipe("Classic Margherita Pizza",      "pizza",      "Medium", "https://images.unsplash.com/photo-1574071318508-1cdbab80d002?w=800",   45,  4, 560),
+        MockRecipe("Chocolate Lava Cake",           "dessert",    "Medium", "https://images.unsplash.com/photo-1624353365286-3f8d62daad51?w=800",   20,  2, 420),
+        MockRecipe("Mediterranean Quinoa Bowl",     "vegetarian", "Easy",   "https://images.unsplash.com/photo-1546069901-ba9599a7e63c?w=800",      35,  4, 390),
+        MockRecipe("Miso Ramen Bowl",               "soup",       "Hard",   "https://images.unsplash.com/photo-1569718212165-3a8278d5f624?w=800",   60,  2, 610),
+        MockRecipe("Spicy Tuna Rolls",              "sushi",      "Hard",   "https://images.unsplash.com/photo-1579584425555-c3ce17fd4351?w=800",   30,  4, 280),
+        MockRecipe("Greek Lemon Chicken",           "chicken",    "Easy",   "https://images.unsplash.com/photo-1516684732162-798a0062be99?w=800",   45,  4, 490),
+        MockRecipe("Homemade Fettuccine Alfredo",   "pasta",      "Medium", "https://images.unsplash.com/photo-1645112411341-6c4fd023714a?w=800",   40,  4, 680),
+        MockRecipe("Authentic Carbonara",           "pasta",      "Medium", "https://images.unsplash.com/photo-1612874742237-6526221588e3?w=800",   25,  2, 620),
+        MockRecipe("Smoked Brisket",                "beef",       "Hard",   "https://images.unsplash.com/photo-1544025162-d76694265947?w=800",     480,  8, 710),
+        MockRecipe("French Macarons",               "dessert",    "Hard",   "https://images.unsplash.com/photo-1558312657-b2dead03d494?w=800",      90, 24, 120),
+        MockRecipe("Classic Tiramisu",              "dessert",    "Medium", "https://images.unsplash.com/photo-1571877227200-a0d98ea607e9?w=800",   30,  8, 380),
+        MockRecipe("Hummus Trio Platter",           "vegetarian", "Easy",   "https://images.unsplash.com/photo-1571115177098-24ec42ed204d?w=800",   20,  6, 210),
     )
 
-    private val IMAGES = listOf(
-        "https://images.unsplash.com/photo-1598103442097-8b74394b95c6?w=800",
-        "https://images.unsplash.com/photo-1525351484163-7529414344d8?w=800",
-        "https://images.unsplash.com/photo-1603360946369-dc9bb6258143?w=800",
-        "https://images.unsplash.com/photo-1574071318508-1cdbab80d002?w=800",
-        "https://images.unsplash.com/photo-1624353365286-3f8d62daad51?w=800",
-        "https://images.unsplash.com/photo-1546069901-ba9599a7e63c?w=800",
-        "https://images.unsplash.com/photo-1569718212165-3a8278d5f624?w=800",
-        "https://images.unsplash.com/photo-1579584425555-c3ce17fd4351?w=800",
-    )
+    private fun buildRecipeJson(recipe: MockRecipe): String {
+        val id    = recipe.title.hashCode().let { if (it < 0) -it else it } % 10_000 + 1
+        val likes = (id * 37) % 900 + 50
+        val score = (id % 50 + 50).toDouble() / 10
 
-    private fun buildRecipeJson(recipe: Triple<String, String, String>): String {
-        val (title, category, difficulty) = recipe
-        val id       = title.hashCode().let { if (it < 0) -it else it } % 10_000 + 1
-        val image    = IMAGES[id % IMAGES.size]
-        val cookTime = listOf(15, 20, 25, 30, 35, 45, 60, 90)[id % 8]
-        val servings = listOf(2, 4, 4, 6)[id % 4]
-        val likes    = (id * 37) % 900 + 50
+        val ingredients = """[{"original":"2 cloves garlic, minced","name":"garlic"},{"original":"1 tbsp olive oil","name":"olive oil"},{"original":"Salt and pepper to taste","name":"salt"},{"original":"Fresh herbs for garnish","name":"herbs"}]"""
+        val instructions = """[{"steps":[{"number":1,"step":"Prepare all ingredients and mise en place."},{"number":2,"step":"Heat oil in a large pan over medium-high heat."},{"number":3,"step":"Cook the main protein until golden brown."},{"number":4,"step":"Add aromatics and cook for 2 minutes."},{"number":5,"step":"Combine all components and season to taste."},{"number":6,"step":"Serve hot, garnished with fresh herbs."}]}]"""
 
-        val ingredients = """[
-            {"original":"2 cloves garlic, minced","name":"garlic"},
-            {"original":"1 tbsp olive oil","name":"olive oil"},
-            {"original":"Salt and pepper to taste","name":"salt"},
-            {"original":"Fresh herbs for garnish","name":"herbs"}
-        ]"""
-
-        val instructions = """[{"steps":[
-            {"number":1,"step":"Prepare all ingredients and mise en place."},
-            {"number":2,"step":"Heat oil in a large pan over medium-high heat."},
-            {"number":3,"step":"Cook the main protein until golden brown."},
-            {"number":4,"step":"Add aromatics and cook for 2 minutes."},
-            {"number":5,"step":"Combine all components and season to taste."},
-            {"number":6,"step":"Serve hot, garnished with fresh herbs."}
-        ]}]"""
-
-        return """
-        {
-          "id":$id,
-          "title":"$title",
-          "image":"$image",
-          "readyInMinutes":$cookTime,
-          "servings":$servings,
-          "aggregateLikes":$likes,
-          "difficulty":"$difficulty",
-          "dishTypes":["$category"],
-          "extendedIngredients":$ingredients,
-          "analyzedInstructions":$instructions,
-          "spoonacularScore":${(id % 50 + 50).toDouble() / 10},
-          "authorName":"Chef Demo",
-          "authorAvatar":"https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=200",
-          "calories":${(id % 300 + 200)}
-        }
-        """.trimIndent()
+        return """{"id":$id,"title":"${recipe.title}","image":"${recipe.imageUrl}","readyInMinutes":${recipe.cookTime},"servings":${recipe.servings},"aggregateLikes":$likes,"difficulty":"${recipe.difficulty}","dishTypes":["${recipe.category}"],"extendedIngredients":$ingredients,"analyzedInstructions":$instructions,"spoonacularScore":$score,"authorName":"Chef Demo","authorAvatar":"https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=200","calories":${recipe.calories}}"""
     }
 
     private val RECIPE_LIST_JSON: String by lazy {

@@ -23,6 +23,7 @@ import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 import com.recipefinder.app.domain.usecase.DeleteRecipeUseCase
+import kotlinx.coroutines.Job
 @HiltViewModel
 class HomeViewModel @Inject constructor(
     private val getRecipesUseCase:    GetRecipesUseCase,
@@ -31,8 +32,10 @@ class HomeViewModel @Inject constructor(
     private val deleteRecipeUseCase:  DeleteRecipeUseCase,
 ) : ViewModel() {
 
-    private val _uiState = MutableStateFlow(HomeUiState())
+    private val _uiState  = MutableStateFlow(HomeUiState())
     val uiState: StateFlow<HomeUiState> = _uiState.asStateFlow()
+
+    private var loadJob: Job? = null
 
     init {
         loadRecipes()
@@ -42,7 +45,8 @@ class HomeViewModel @Inject constructor(
     // ─── Load ─────────────────────────────────────────────────────────────────
 
     fun loadRecipes() {
-        getRecipesUseCase()
+        loadJob?.cancel()
+        loadJob = getRecipesUseCase()
             .onEach { result ->
                 when (result) {
                     is Resource.Loading -> _uiState.update {

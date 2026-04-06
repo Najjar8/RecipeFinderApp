@@ -76,6 +76,10 @@ import coil.imageLoader
 import coil.request.ImageRequest
 import java.io.File
 import kotlinx.coroutines.launch
+import androidx.compose.runtime.DisposableEffect
+import androidx.lifecycle.Lifecycle
+import androidx.lifecycle.LifecycleEventObserver
+import androidx.lifecycle.compose.LocalLifecycleOwner
 @Suppress("DEPRECATION")
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -87,7 +91,18 @@ fun HomeScreen(
     sharedTransitionScope: SharedTransitionScope,
 ) {
     val uiState by viewModel.uiState.collectAsStateWithLifecycle()
-    val snackbarHostState = remember { SnackbarHostState() }
+    val snackbarState  = remember { SnackbarHostState() }
+    val lifecycleOwner = LocalLifecycleOwner.current
+
+    DisposableEffect(lifecycleOwner) {
+        val observer = LifecycleEventObserver { _, event ->
+            if (event == Lifecycle.Event.ON_RESUME) {
+                viewModel.loadRecipes()
+            }
+        }
+        lifecycleOwner.lifecycle.addObserver(observer)
+        onDispose { lifecycleOwner.lifecycle.removeObserver(observer) }
+    }
 
     // ── Insets ────────────────────────────────────────────────────────────────
     val statusBarHeight: Dp = WindowInsets.statusBars
@@ -136,7 +151,7 @@ fun HomeScreen(
     // ── Error snackbar ────────────────────────────────────────────────────────
     LaunchedEffect(uiState.errorMessage) {
         uiState.errorMessage?.let { msg ->
-            snackbarHostState.showSnackbar(
+            snackbarState.showSnackbar(
                 message  = msg,
                 duration = SnackbarDuration.Short,
             )
@@ -150,7 +165,7 @@ fun HomeScreen(
     // canvas from edge to edge.
     Scaffold(
         modifier            = Modifier.nestedScroll(nestedScrollConnection),
-        snackbarHost        = { SnackbarHost(snackbarHostState) },
+        snackbarHost        = { SnackbarHost(snackbarState) },
         // Zero out every inset — we handle them all manually below.
         contentWindowInsets = WindowInsets(0, 0, 0, 0),
         floatingActionButton = {

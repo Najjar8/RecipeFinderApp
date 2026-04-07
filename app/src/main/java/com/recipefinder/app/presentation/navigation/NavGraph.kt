@@ -19,7 +19,10 @@ import androidx.navigation.compose.composable
 import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
 import androidx.navigation.navArgument
+import androidx.hilt.navigation.compose.hiltViewModel
+import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.recipefinder.app.core.constants.AppConstants
+import com.recipefinder.app.presentation.MainViewModel
 import com.recipefinder.app.presentation.components.RecipeBottomNavigationBar
 import com.recipefinder.app.presentation.detail.RecipeDetailScreen
 import com.recipefinder.app.presentation.favorites.FavoritesScreen
@@ -31,9 +34,11 @@ private const val TRANSITION_DURATION = AppConstants.ANIMATION_DURATION_MS
 @Composable
 fun NavGraph(
     navController: NavHostController = rememberNavController(),
+    mainViewModel: MainViewModel = hiltViewModel(),
 ) {
     val navBackStackEntry by navController.currentBackStackEntryAsState()
     val currentDestination = navBackStackEntry?.destination
+    val favoriteBadgeCount by mainViewModel.favoriteBadgeCount.collectAsStateWithLifecycle()
 
     // Determine whether the bottom bar should be visible
     val showBottomBar = Screen.bottomNavItems.any { screen ->
@@ -45,6 +50,7 @@ fun NavGraph(
             if (showBottomBar) {
                 RecipeBottomNavigationBar(
                     currentDestination = currentDestination,
+                    favoriteBadgeCount = favoriteBadgeCount,
                     onNavigate = { screen ->
                         navController.navigate(screen.route) {
                             // Pop back stack to the start destination to avoid

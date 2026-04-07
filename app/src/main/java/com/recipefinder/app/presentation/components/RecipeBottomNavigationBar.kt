@@ -7,6 +7,8 @@ import androidx.compose.material.icons.filled.Search
 import androidx.compose.material.icons.outlined.FavoriteBorder
 import androidx.compose.material.icons.outlined.Home
 import androidx.compose.material.icons.outlined.Search
+import androidx.compose.material3.Badge
+import androidx.compose.material3.BadgedBox
 import androidx.compose.material3.Icon
 import androidx.compose.material3.NavigationBar
 import androidx.compose.material3.NavigationBarItem
@@ -36,6 +38,7 @@ private val NAV_ITEMS = listOf(
 fun RecipeBottomNavigationBar(
     currentDestination: NavDestination?,
     onNavigate: (Screen) -> Unit,
+    favoriteBadgeCount: Int = 0,
 ) {
     NavigationBar {
         NAV_ITEMS.forEach { item ->
@@ -43,14 +46,24 @@ fun RecipeBottomNavigationBar(
                 ?.hierarchy
                 ?.any { it.route == item.screen.route } == true
 
+            val showBadge = item.screen == Screen.Favorites && favoriteBadgeCount > 0 && !selected
+
             NavigationBarItem(
                 selected = selected,
                 onClick  = { onNavigate(item.screen) },
                 icon = {
-                    Icon(
-                        imageVector = if (selected) item.selectedIcon else item.unselectedIcon,
-                        contentDescription = stringResource(item.label),
-                    )
+                    BadgedBox(
+                        badge = {
+                            if (showBadge) {
+                                Badge { Text(favoriteBadgeCount.toString()) }
+                            }
+                        }
+                    ) {
+                        Icon(
+                            imageVector = if (selected) item.selectedIcon else item.unselectedIcon,
+                            contentDescription = stringResource(item.label),
+                        )
+                    }
                 },
                 label = { Text(stringResource(item.label)) },
             )

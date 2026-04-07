@@ -16,7 +16,18 @@ data class HomeUiState(
     val errorMessage:   String?      = null,
     val searchQuery:    String       = "",
     val recipeToDelete: Recipe?      = null,
+    val displayedCount: Int          = PAGE_SIZE,
 ) {
+    /** The current page slice shown in the grid. */
+    val visibleRecipes: List<Recipe> get() = recipes.take(displayedCount)
+
+    /** True when there are more recipes beyond the current page. */
+    val canLoadMore: Boolean get() = displayedCount < recipes.size
+
     /** Convenience property – true when there is nothing to show and no error. */
     val isEmpty: Boolean get() = !isLoading && recipes.isEmpty() && errorMessage == null
+
+    companion object {
+        const val PAGE_SIZE = 12
+    }
 }

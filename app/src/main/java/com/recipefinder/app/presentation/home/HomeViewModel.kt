@@ -92,14 +92,22 @@ class HomeViewModel @Inject constructor(
     fun onFilterChange(filter: RecipeFilter) {
         _uiState.update { state ->
             val filtered = applyFilter(state.allRecipes, filter, state.searchQuery)
-            state.copy(filter = filter, recipes = filtered)
+            state.copy(filter = filter, recipes = filtered, displayedCount = HomeUiState.PAGE_SIZE)
+        }
+    }
+
+    fun loadMore() {
+        _uiState.update { state ->
+            if (state.canLoadMore) {
+                state.copy(displayedCount = state.displayedCount + HomeUiState.PAGE_SIZE)
+            } else state
         }
     }
 
     private fun reapplyFilters(query: String) {
         _uiState.update { state ->
             val filtered = applyFilter(state.allRecipes, state.filter, query)
-            state.copy(recipes = filtered)
+            state.copy(recipes = filtered, displayedCount = HomeUiState.PAGE_SIZE)
         }
     }
 

@@ -18,6 +18,7 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.statusBars
 import androidx.compose.foundation.layout.windowInsetsPadding
 import androidx.compose.foundation.lazy.grid.GridCells
@@ -27,6 +28,7 @@ import androidx.compose.foundation.lazy.grid.items
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.SnackbarDuration
+import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.SnackbarHost
 import androidx.compose.material3.SnackbarHostState
 import androidx.compose.material3.Surface
@@ -195,7 +197,7 @@ fun HomeScreen(
                     LoadingIndicator(modifier = Modifier.fillMaxSize())
                 }
 
-                uiState.isEmpty -> {
+                uiState.isEmpty && uiState.searchQuery.isBlank() && uiState.filter == RecipeFilter() -> {
                     EmptyState(
                         message  = stringResource(R.string.no_recipes_found),
                         modifier = Modifier.fillMaxSize(),
@@ -208,10 +210,11 @@ fun HomeScreen(
                         topBarHeight            = topBarHeight,
                         onRecipeClick           = onRecipeClick,
                         onFavClick              = viewModel::onToggleFavorite,
-                        onDeleteClick  = viewModel::onDeleteRequest,
-                        onShareClick   = { recipe -> scope.launch { shareRecipeWithImage(context, recipe) } },
+                        onDeleteClick           = viewModel::onDeleteRequest,
+                        onShareClick            = { recipe -> scope.launch { shareRecipeWithImage(context, recipe) } },
                         onQueryChange           = viewModel::onSearchQueryChange,
                         onFilterChange          = viewModel::onFilterChange,
+                        onLoadMore              = viewModel::loadMore,
                         sharedTransitionScope   = sharedTransitionScope,
                         animatedVisibilityScope = animatedVisibilityScope,
                     )
@@ -264,6 +267,7 @@ private fun RecipeGrid(
     onShareClick: (Recipe) -> Unit,
     onQueryChange: (String) -> Unit,
     onFilterChange: (RecipeFilter) -> Unit,
+    onLoadMore: () -> Unit,
     sharedTransitionScope: SharedTransitionScope,
     animatedVisibilityScope: AnimatedVisibilityScope,
 ) {
@@ -310,7 +314,7 @@ private fun RecipeGrid(
         }
 
         items(
-            items = uiState.recipes,
+            items = uiState.visibleRecipes,
             key   = { it.id },
         ) { recipe ->
             AnimatedVisibility(
@@ -322,8 +326,8 @@ private fun RecipeGrid(
                     recipe                  = recipe,
                     onCardClick             = onRecipeClick,
                     onFavoriteClick         = onFavClick,
-                    onDeleteClick   = onDeleteClick,
-                    onShareClick    = onShareClick,
+                    onDeleteClick           = onDeleteClick,
+                    onShareClick            = onShareClick,
                     sharedTransitionScope   = sharedTransitionScope,
                     animatedVisibilityScope = animatedVisibilityScope,
                 )
@@ -336,6 +340,24 @@ private fun RecipeGrid(
                     message  = "No recipes found for \"${uiState.searchQuery}\"",
                     modifier = Modifier.height(200.dp),
                 )
+            }
+        }
+
+        // Load-more trigger: when this item scrolls into view, fetch next page.
+        if (uiState.canLoadMore) {
+            item(span = { GridItemSpan(maxLineSpan) }) {
+                LaunchedEffect(uiState.displayedCount) { onLoadMore() }
+                Box(
+                    contentAlignment = Alignment.Center,
+                    modifier         = Modifier
+                        .fillMaxWidth()
+                        .padding(vertical = 16.dp),
+                ) {
+                    CircularProgressIndicator(
+                        modifier = Modifier.size(28.dp),
+                        strokeWidth = 2.dp,
+                    )
+                }
             }
         }
     }

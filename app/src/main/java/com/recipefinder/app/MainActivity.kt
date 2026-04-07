@@ -26,6 +26,8 @@ class MainActivity : ComponentActivity() {
 
         super.onCreate(savedInstanceState)
 
+        enableHighRefreshRate()
+
         // Draw behind system bars for a true edge-to-edge experience.
         enableEdgeToEdge()
 
@@ -35,6 +37,28 @@ class MainActivity : ComponentActivity() {
             RecipeFinderTheme(darkTheme = isDarkTheme) {
                 NavGraph()
             }
+        }
+    }
+
+    /**
+     * Requests the highest refresh rate supported by the display at the
+     * current resolution (e.g. 120 Hz on capable devices).
+     * On displays that only support 60 Hz this is a no-op.
+     */
+    @Suppress("DEPRECATION")   // defaultDisplay deprecated at API 30; fine for minSdk 26
+    private fun enableHighRefreshRate() {
+        val display = windowManager.defaultDisplay
+        val currentMode = display.mode
+        val bestMode = display.supportedModes
+            .filter {
+                it.physicalWidth == currentMode.physicalWidth &&
+                it.physicalHeight == currentMode.physicalHeight
+            }
+            .maxByOrNull { it.refreshRate }
+            ?: return
+
+        window.attributes = window.attributes.apply {
+            preferredDisplayModeId = bestMode.modeId
         }
     }
 }

@@ -165,11 +165,11 @@ fun RecipeCard(
                         icon  = Icons.Outlined.People,
                         label = "${recipe.servings} servings",
                     )
-                    RecipeMetaChip(
-                        icon  = Icons.Filled.Favorite,
-                        label = recipe.likes.toString(),
-                        tint  = HeartRed,
-                    )
+//                    RecipeMetaChip(
+//                        icon  = Icons.Filled.Favorite,
+//                        label = recipe.likes.toString(),
+//                        tint  = HeartRed,
+//                    )
                 }
             }
         }

@@ -212,7 +212,7 @@ private fun SearchIdleState(
             }
         } else {
             // Hint chips for first-time users
-            SearchHints()
+            SearchHints(onSuggestionClick = onSuggestionClick)
         }
     }
 }
@@ -249,7 +249,7 @@ private fun SuggestionRow(text: String, onClick: () -> Unit) {
 }
 
 @Composable
-private fun SearchHints() {
+private fun SearchHints(onSuggestionClick: (String) -> Unit) {
     val hints = listOf("Chicken", "Pasta", "Vegetarian", "Dessert", "Quick meals", "Pizza")
     Column {
         Spacer(Modifier.height(32.dp))
@@ -276,7 +276,7 @@ private fun SearchHints() {
         )
         Spacer(Modifier.height(8.dp))
         hints.forEach { hint ->
-            SuggestionRow(text = hint, onClick = {})
+            SuggestionRow(text = hint, onClick = { onSuggestionClick(hint) })
             HorizontalDivider()
         }
     }

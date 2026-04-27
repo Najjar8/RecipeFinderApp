@@ -36,7 +36,7 @@ class FilterRecipesUseCase @Inject constructor() {
             SortOrder.NAME_DESC     -> result.sortedByDescending { it.title }
             SortOrder.COOK_TIME_ASC -> result.sortedBy      { it.cookTimeMinutes }
             SortOrder.COOK_TIME_DESC-> result.sortedByDescending { it.cookTimeMinutes }
-            SortOrder.MOST_LIKED    -> result.sortedByDescending { it.likes }
+            //SortOrder.MOST_LIKED    -> result.sortedByDescending { it.likes }
             SortOrder.DEFAULT       -> result
         }
 

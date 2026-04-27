@@ -5,6 +5,7 @@ import androidx.compose.animation.SharedTransitionLayout
 import androidx.compose.animation.core.tween
 import androidx.compose.animation.fadeIn
 import androidx.compose.animation.fadeOut
+import androidx.compose.foundation.layout.WindowInsets
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.Scaffold
 import androidx.compose.runtime.Composable
@@ -46,6 +47,7 @@ fun NavGraph(
     }
 
     Scaffold(
+        contentWindowInsets = WindowInsets(0, 0, 0, 0),
         bottomBar = {
             if (showBottomBar) {
                 RecipeBottomNavigationBar(
@@ -80,24 +82,12 @@ fun NavGraph(
                 },
                 exitTransition = {
                     fadeOut(tween(TRANSITION_DURATION))
-//               + slideOutOfContainer(
-//                    AnimatedContentTransitionScope.SlideDirection.Start,
-//                    tween(TRANSITION_DURATION)
-//                )
                 },
                 popEnterTransition = {
                     fadeIn(tween(TRANSITION_DURATION))
-//               + slideIntoContainer(
-//                    AnimatedContentTransitionScope.SlideDirection.End,
-//                    tween(TRANSITION_DURATION)
-//                )
                 },
                 popExitTransition = {
                     fadeOut(tween(TRANSITION_DURATION))
-//               + slideOutOfContainer(
-//                    AnimatedContentTransitionScope.SlideDirection.End,
-//                    tween(TRANSITION_DURATION)
-//                )
                 },
             ) {
                 composable(Screen.Home.route) {

@@ -17,5 +17,5 @@ enum class SortOrder(val label: String) {
     NAME_DESC("Name (Z–A)"),
     COOK_TIME_ASC("Cook Time ↑"),
     COOK_TIME_DESC("Cook Time ↓"),
-    MOST_LIKED("Most Liked"),
+    //MOST_LIKED("Most Liked"),
 }

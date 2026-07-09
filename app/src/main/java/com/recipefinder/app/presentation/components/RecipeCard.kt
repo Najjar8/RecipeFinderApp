@@ -34,7 +34,6 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.text.style.TextOverflow
@@ -53,8 +52,11 @@ import androidx.compose.material3.DropdownMenu
 import androidx.compose.material3.DropdownMenuItem
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
-import androidx.compose.runtime.getValue
 import androidx.compose.runtime.setValue
+import androidx.compose.ui.graphics.painter.ColorPainter
+import androidx.compose.ui.platform.LocalContext
+import coil.request.ImageRequest
+
 @Composable
 fun RecipeCard(
     recipe: Recipe,
@@ -80,16 +82,21 @@ fun RecipeCard(
             // ── Hero image with favourite button overlay ───────────────────
             Box {
                 AsyncImage(
-                    model             = recipe.imageUrl,
+                    model = ImageRequest.Builder(LocalContext.current)
+                        .data(recipe.imageUrl)
+                        .crossfade(true)
+                        .build(),
                     contentDescription = recipe.title,
                     contentScale       = ContentScale.Crop,
+                    placeholder        = ColorPainter(MaterialTheme.colorScheme.surfaceVariant),
+                    error              = ColorPainter(MaterialTheme.colorScheme.surfaceVariant),
                     modifier           = Modifier
                         .fillMaxWidth()
                         .height(180.dp)
                         .sharedElement(
-                        sharedContentState = rememberSharedContentState(key = "recipe-image-${recipe.id}"),
-                        animatedVisibilityScope = animatedVisibilityScope,
-                )
+                            sharedContentState = rememberSharedContentState(key = "recipe-image-${recipe.id}"),
+                            animatedVisibilityScope = animatedVisibilityScope,
+                        )
                 )
 
                 // Difficulty badge — top-left
@@ -141,7 +148,7 @@ fun RecipeCard(
                 Text(
                     text     = recipe.title,
                     style    = MaterialTheme.typography.titleSmall,
-                    maxLines = 2,
+                    maxLines = 1,
                     overflow = TextOverflow.Ellipsis,
                     modifier = Modifier
                         .sharedElement( // 👈 optional but looks great
@@ -209,10 +216,10 @@ private fun FavoriteButton(
 
 @Composable
 private fun RecipeMetaChip(
+    modifier: Modifier = Modifier,
     icon: androidx.compose.ui.graphics.vector.ImageVector,
     label: String,
     tint: Color = MaterialTheme.colorScheme.onSurfaceVariant,
-    modifier: Modifier = Modifier,
 ) {
     Row(
         verticalAlignment = Alignment.CenterVertically,

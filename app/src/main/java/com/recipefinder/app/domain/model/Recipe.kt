@@ -1,9 +1,12 @@
 package com.recipefinder.app.domain.model
 
+import androidx.compose.runtime.Immutable
+
 /**
  * Pure-Kotlin domain model. No Android or framework dependencies here.
  * This is the single source of truth flowing through the app.
  */
+@Immutable
 data class Recipe(
     val id: Int,
     val title: String,

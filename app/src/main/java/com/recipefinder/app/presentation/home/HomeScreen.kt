@@ -1,10 +1,7 @@
 package com.recipefinder.app.presentation.home
 
-import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.animation.AnimatedVisibilityScope
 import androidx.compose.animation.SharedTransitionScope
-import androidx.compose.animation.fadeIn
-import androidx.compose.animation.fadeOut
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -74,6 +71,8 @@ import androidx.compose.runtime.DisposableEffect
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.LifecycleEventObserver
 import androidx.lifecycle.compose.LocalLifecycleOwner
+import androidx.core.net.toUri
+
 @Suppress("DEPRECATION")
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -100,6 +99,12 @@ fun HomeScreen(
 
     val context = LocalContext.current
     val scope   = rememberCoroutineScope()
+    val onShareClick = remember(context) {
+        { recipe: Recipe ->
+            scope.launch { shareRecipeWithImage(context, recipe) }
+            Unit
+        }
+    }
 
     uiState.recipeToDelete?.let { recipe ->
         AlertDialog(
@@ -173,7 +178,7 @@ fun HomeScreen(
                     onRecipeClick           = onRecipeClick,
                     onFavClick              = viewModel::onToggleFavorite,
                     onDeleteClick           = viewModel::onDeleteRequest,
-                    onShareClick            = { recipe -> scope.launch { shareRecipeWithImage(context, recipe) } },
+                    onShareClick            = onShareClick,
                     onQueryChange           = viewModel::onSearchQueryChange,
                     onFilterChange          = viewModel::onFilterChange,
                     onLoadMore              = viewModel::loadMore,
@@ -245,11 +250,6 @@ private fun RecipeGrid(
             items = uiState.visibleRecipes,
             key   = { it.id },
         ) { recipe ->
-            AnimatedVisibility(
-                visible = true,
-                enter   = fadeIn(),
-                exit    = fadeOut(),
-            ) {
                 RecipeCard(
                     recipe                  = recipe,
                     onCardClick             = onRecipeClick,
@@ -259,7 +259,6 @@ private fun RecipeGrid(
                     sharedTransitionScope   = sharedTransitionScope,
                     animatedVisibilityScope = animatedVisibilityScope,
                 )
-            }
         }
 
         if (uiState.recipes.isEmpty() && uiState.searchQuery.isNotBlank()) {
@@ -311,7 +310,7 @@ private suspend fun shareRecipeWithImage(context: android.content.Context, recip
         try {
             if (recipe.imageUrl.startsWith("content://")) {
                 // User-added local image — share the URI directly
-                Uri.parse(recipe.imageUrl)
+                recipe.imageUrl.toUri()
             } else {
                 // Remote HTTPS image — download via Coil and write to cache
                 val result = context.imageLoader.execute(

@@ -28,6 +28,7 @@ android {
                 "proguard-rules.pro"
             )
             buildConfigField("String", "BASE_URL", "\"https://api.spoonacular.com/\"")
+            signingConfig = signingConfigs.getByName("debug")
         }
         debug {
             isDebuggable = true
